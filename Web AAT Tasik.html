@@ -1,0 +1,2045 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem AAT Holistik - Klinik Tabib Wan</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== VARIABLES & RESET ===== */
+        :root {
+            --primary: #2c7873;
+            --secondary: #6fb98f;
+            --accent: #ff9800;
+            --danger: #dc3545;
+            --success: #28a745;
+            --warning: #ffc107;
+            --info: #17a2b8;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* ===== HEADER ===== */
+        header {
+            background: linear-gradient(135deg, var(--primary) 0%, #1a504c 100%);
+            color: white;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+            box-shadow: var(--box-shadow);
+            text-align: center;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .clinic-info h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        
+        .clinic-info p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+        
+        .contact-info {
+            text-align: right;
+        }
+        
+        .contact-info p {
+            margin: 3px 0;
+            font-size: 0.9rem;
+        }
+        
+        /* ===== TABS NAVIGATION ===== */
+        .tab-navigation {
+            display: flex;
+            background: white;
+            border-radius: var(--border-radius) var(--border-radius) 0 0;
+            overflow: hidden;
+            margin-bottom: 0;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 18px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            min-width: 130px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom: 3px solid var(--primary);
+            background-color: #f8f9fa;
+        }
+        
+        .tab-btn i {
+            margin-right: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 25px;
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 30px;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* ===== FORM STYLES ===== */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 18px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.95rem;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 0.95rem;
+            transition: border 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(44, 120, 115, 0.1);
+        }
+        
+        .blood-pressure-inputs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .blood-pressure-inputs {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .bp-input {
+            background: white;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        /* ===== BUTTONS ===== */
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 25px 0;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #235c57;
+            transform: translateY(-2px);
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #218838;
+        }
+        
+        .btn-warning {
+            background: var(--warning);
+            color: #212529;
+        }
+        
+        .btn-warning:hover {
+            background: #e0a800;
+        }
+        
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            background: #c82333;
+        }
+        
+        .btn-info {
+            background: var(--info);
+            color: white;
+        }
+        
+        .btn-info:hover {
+            background: #138496;
+        }
+        
+        /* ===== COMPACT ANALYSIS RESULT ===== */
+        .compact-analysis {
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 25px;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .analysis-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .analysis-header h3 {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .analysis-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            border-left: 3px solid var(--secondary);
+        }
+        
+        .analysis-item h4 {
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .analysis-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--dark);
+            margin: 5px 0;
+        }
+        
+        .status-tag {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 8px;
+        }
+        
+        .status-hot {
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+        }
+        
+        .status-cold {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            color: #1565c0;
+            border: 1px solid #bbdefb;
+        }
+        
+        .status-warm {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+        
+        /* ===== THERAPY SECTION ===== */
+        .therapy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .therapy-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s;
+            border-top: 4px solid var(--primary);
+        }
+        
+        .therapy-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .therapy-header {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .therapy-content {
+            padding: 20px;
+        }
+        
+        .therapy-content h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        /* ===== FOOD MENU ===== */
+        .food-week-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .day-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s;
+        }
+        
+        .day-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .day-header {
+            background: var(--secondary);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .day-content {
+            padding: 15px;
+        }
+        
+        .meal-time {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .meal-time:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .meal-time h5 {
+            color: var(--accent);
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* ===== PATIENT MANAGEMENT ===== */
+        .patient-management {
+            margin-top: 30px;
+        }
+        
+        .patient-search {
+            background: white;
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .patient-list {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .patient-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .patient-table th {
+            background: var(--primary);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .patient-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+        }
+        
+        .patient-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .action-btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+        
+        /* ===== ALERTS ===== */
+        .alert {
+            padding: 15px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .alert-warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+        }
+        
+        .alert-danger {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+        
+        .alert-info {
+            background: #d1ecf1;
+            border: 1px solid #bee5eb;
+            color: #0c5460;
+        }
+        
+        /* ===== FOOTER ===== */
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 40px;
+            border-top: 1px solid #eee;
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .contact-info {
+                text-align: center;
+            }
+            
+            .tab-navigation {
+                flex-wrap: wrap;
+            }
+            
+            .tab-btn {
+                min-width: 100px;
+                padding: 15px;
+                font-size: 0.85rem;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .analysis-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .therapy-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .food-week-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .patient-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+        
+        /* ===== PRINT STYLES ===== */
+        @media print {
+            .tab-navigation,
+            .btn-group,
+            .no-print,
+            footer {
+                display: none !important;
+            }
+            
+            .tab-content {
+                display: block !important;
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+                page-break-inside: avoid;
+            }
+            
+            .compact-analysis,
+            .therapy-card,
+            .day-card {
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+                page-break-inside: avoid;
+            }
+        }
+        
+        /* ===== NOTIFICATION ===== */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            z-index: 1000;
+            animation: slideIn 0.3s ease-out;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 400px;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .notification-success {
+            background: var(--success);
+            color: white;
+            border-left: 4px solid #1e7e34;
+        }
+        
+        .notification-info {
+            background: var(--info);
+            color: white;
+            border-left: 4px solid #117a8b;
+        }
+        
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <header>
+            <div class="header-content">
+                <div class="clinic-info">
+                    <h1><i class="fas fa-heartbeat"></i> KLINIK AAT HOLISTIK TASIKMALAYA</h1>
+                    <p>Sistem Analisa Tensimeter dengan Pendekatan Panas Dingin</p>
+                </div>
+                <div class="contact-info">
+                    <p><i class="fas fa-map-marker-alt"></i> Sukamanah - Cigalontang - Kab. Tasikmalaya</p>
+                    <p><i class="fas fa-phone"></i> 0853-2240-0269 | <i class="fas fa-whatsapp"></i> 0853-2240-0269</p>
+                    <p><i class="fas fa-envelope"></i> klinik.aatholistik@gmail.com</p>
+                </div>
+            </div>
+        </header>
+        
+        <!-- TAB NAVIGATION -->
+        <div class="tab-navigation">
+            <button class="tab-btn active" data-tab="patient">
+                <i class="fas fa-user-injured"></i> Data Pasien
+            </button>
+            <button class="tab-btn" data-tab="analysis">
+                <i class="fas fa-stethoscope"></i> Analisis
+            </button>
+            <button class="tab-btn" data-tab="therapy">
+                <i class="fas fa-hand-holding-medical"></i> Terapi
+            </button>
+            <button class="tab-btn" data-tab="food">
+                <i class="fas fa-utensils"></i> Menu 7 Hari
+            </button>
+            <button class="tab-btn" data-tab="about">
+                <i class="fas fa-info-circle"></i> Tentang
+            </button>
+        </div>
+        
+        <!-- TAB 1: DATA PASIEN -->
+        <div class="tab-content active" id="patient-tab">
+            <h2><i class="fas fa-user-injured"></i> Manajemen Data Pasien</h2>
+            
+            <div class="alert alert-warning">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span>Data pasien disimpan di browser Anda. Untuk backup, ekspor data secara berkala.</span>
+            </div>
+            
+            <!-- PENCARIAN PASIEN -->
+            <div class="patient-search">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="searchPatient"><i class="fas fa-search"></i> Cari Pasien</label>
+                        <input type="text" id="searchPatient" placeholder="Nama, NIK, atau telepon...">
+                    </div>
+                    <div class="form-group">
+                        <label for="filterStatus">Status Pasien</label>
+                        <select id="filterStatus">
+                            <option value="all">Semua Pasien</option>
+                            <option value="new">Pasien Baru</option>
+                            <option value="return">Pasien Lama</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-success" onclick="searchPatients()">
+                        <i class="fas fa-search"></i> Cari
+                    </button>
+                    <button class="btn btn-primary" onclick="showNewPatientForm()">
+                        <i class="fas fa-user-plus"></i> Pasien Baru
+                    </button>
+                    <button class="btn btn-info" onclick="exportPatientData()">
+                        <i class="fas fa-file-export"></i> Ekspor Data
+                    </button>
+                </div>
+            </div>
+            
+            <!-- FORM TAMBAH/EDIT PASIEN -->
+            <div id="patientForm" class="compact-analysis" style="display: none;">
+                <div class="analysis-header">
+                    <h3><i class="fas fa-user-edit"></i> Form Data Pasien</h3>
+                    <button class="btn btn-danger" onclick="hidePatientForm()">
+                        <i class="fas fa-times"></i> Tutup
+                    </button>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="patientId">ID Pasien (Auto)</label>
+                        <input type="text" id="patientId" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="fullName">Nama Lengkap *</label>
+                        <input type="text" id="fullName" placeholder="Nama lengkap pasien" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="patientNIK">NIK</label>
+                        <input type="text" id="patientNIK" placeholder="Nomor Induk Kependudukan">
+                    </div>
+                    <div class="form-group">
+                        <label for="patientGender">Jenis Kelamin</label>
+                        <select id="patientGender">
+                            <option value="">Pilih...</option>
+                            <option value="L">Laki-laki</option>
+                            <option value="P">Perempuan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="birthDate">Tanggal Lahir</label>
+                        <input type="date" id="birthDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="patientAge">Umur</label>
+                        <input type="number" id="patientAge" placeholder="Tahun">
+                    </div>
+                    <div class="form-group">
+                        <label for="patientPhone">Telepon/HP *</label>
+                        <input type="tel" id="patientPhone" placeholder="08xxxxxxxxxx" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="patientEmail">Email</label>
+                        <input type="email" id="patientEmail" placeholder="email@domain.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="patientAddress">Alamat Lengkap *</label>
+                        <textarea id="patientAddress" rows="3" placeholder="Alamat rumah lengkap" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="patientCity">Kota/Kabupaten</label>
+                        <input type="text" id="patientCity" placeholder="Kota tempat tinggal">
+                    </div>
+                    <div class="form-group">
+                        <label for="patientOccupation">Pekerjaan</label>
+                        <input type="text" id="patientOccupation" placeholder="Pekerjaan pasien">
+                    </div>
+                    <div class="form-group">
+                        <label for="patientStatus">Status Pasien</label>
+                        <select id="patientStatus">
+                            <option value="new">Pasien Baru</option>
+                            <option value="return">Pasien Lama</option>
+                            <option value="regular">Pasien Rutin</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-success" onclick="savePatient()">
+                        <i class="fas fa-save"></i> Simpan Data
+                    </button>
+                    <button class="btn btn-warning" onclick="resetPatientForm()">
+                        <i class="fas fa-redo"></i> Reset Form
+                    </button>
+                    <button class="btn btn-danger" onclick="hidePatientForm()">
+                        <i class="fas fa-times"></i> Batal
+                    </button>
+                </div>
+            </div>
+            
+            <!-- DAFTAR PASIEN -->
+            <div class="patient-management">
+                <h3><i class="fas fa-list"></i> Daftar Pasien</h3>
+                <div class="patient-list">
+                    <table class="patient-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nama</th>
+                                <th>Umur</th>
+                                <th>Telepon</th>
+                                <th>Alamat</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="patientTableBody">
+                            <!-- Data pasien akan diisi oleh JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 2: ANALISIS -->
+        <div class="tab-content" id="analysis-tab">
+            <h2><i class="fas fa-stethoscope"></i> Analisis Tensimeter</h2>
+            
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i>
+                <span>Pilih pasien terlebih dahulu sebelum melakukan analisis.</span>
+            </div>
+            
+            <!-- PILIH PASIEN -->
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="selectPatient"><i class="fas fa-user"></i> Pilih Pasien</label>
+                    <select id="selectPatient" onchange="loadSelectedPatient()">
+                        <option value="">-- Pilih Pasien --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="visitDate">Tanggal Kunjungan</label>
+                    <input type="datetime-local" id="visitDate" value="">
+                </div>
+            </div>
+            
+            <!-- DATA PASIEN TERPILIH -->
+            <div id="selectedPatientInfo" class="compact-analysis" style="display: none;">
+                <div class="analysis-header">
+                    <h3><i class="fas fa-user"></i> Data Pasien Terpilih</h3>
+                </div>
+                <div class="analysis-grid">
+                    <div class="analysis-item">
+                        <h4><i class="fas fa-user-circle"></i> Identitas</h4>
+                        <div id="patientInfoBasic"></div>
+                    </div>
+                    <div class="analysis-item">
+                        <h4><i class="fas fa-home"></i> Alamat</h4>
+                        <div id="patientInfoAddress"></div>
+                    </div>
+                    <div class="analysis-item">
+                        <h4><i class="fas fa-history"></i> Riwayat</h4>
+                        <div id="patientInfoHistory"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- INPUT TENSI -->
+            <div class="blood-pressure-inputs">
+                <div class="bp-input">
+                    <label for="systolic"><i class="fas fa-arrow-up"></i> Sistolik (Atas)</label>
+                    <input type="number" id="systolic" placeholder="120" min="40" max="300" required>
+                </div>
+                <div class="bp-input">
+                    <label for="diastolic"><i class="fas fa-arrow-down"></i> Diastolik (Bawah)</label>
+                    <input type="number" id="diastolic" placeholder="80" min="20" max="200" required>
+                </div>
+                <div class="bp-input">
+                    <label for="pulse"><i class="fas fa-heartbeat"></i> Nadi (bpm)</label>
+                    <input type="number" id="pulse" placeholder="80" min="30" max="200" required>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="currentComplaint">Keluhan Saat Ini</label>
+                <textarea id="currentComplaint" rows="3" placeholder="Keluhan utama pasien..."></textarea>
+            </div>
+            
+            <div class="btn-group">
+                <button class="btn btn-success" onclick="performAnalysis()">
+                    <i class="fas fa-chart-line"></i> Analisis Sekarang
+                </button>
+                <button class="btn btn-warning" onclick="resetAnalysisForm()">
+                    <i class="fas fa-redo"></i> Reset Form
+                </button>
+                <button class="btn btn-info" onclick="loadExampleData('hot')">
+                    <i class="fas fa-fire"></i> Contoh Panas
+                </button>
+                <button class="btn btn-info" onclick="loadExampleData('cold')">
+                    <i class="fas fa-snowflake"></i> Contoh Dingin
+                </button>
+            </div>
+            
+            <!-- HASIL ANALISIS -->
+            <div id="analysisResult"></div>
+            
+            <!-- NAVIGASI KE TERAPI SETELAH ANALISIS -->
+            <div id="navigationToTherapy" style="display: none;">
+                <div class="navigation-buttons">
+                    <button class="btn btn-info" onclick="viewTherapyDetails()">
+                        <i class="fas fa-eye"></i> Lihat Detail Terapi
+                    </button>
+                    <button class="btn btn-primary" onclick="switchTab('therapy')">
+                        <i class="fas fa-arrow-right"></i> Lanjut ke Terapi
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 3: TERAPI -->
+        <div class="tab-content" id="therapy-tab">
+            <h2><i class="fas fa-hand-holding-medical"></i> Rekomendasi Terapi</h2>
+            <div id="therapyResult">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Silakan lakukan analisis terlebih dahulu untuk melihat rekomendasi terapi.</span>
+                </div>
+            </div>
+            
+            <!-- NAVIGASI KE MENU MAKANAN -->
+            <div id="navigationToFood" style="display: none; margin-top: 30px;">
+                <div class="navigation-buttons">
+                    <button class="btn btn-warning" onclick="switchTab('analysis')">
+                        <i class="fas fa-arrow-left"></i> Kembali ke Analisis
+                    </button>
+                    <button class="btn btn-success" onclick="switchTab('food')">
+                        <i class="fas fa-arrow-right"></i> Lanjut ke Menu Makanan
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 4: MENU MAKANAN -->
+        <div class="tab-content" id="food-tab">
+            <h2><i class="fas fa-utensils"></i> Menu Makanan 7 Hari</h2>
+            <div id="foodMenuResult">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Silakan lakukan analisis terlebih dahulu untuk melihat rekomendasi menu makanan.</span>
+                </div>
+            </div>
+            
+            <!-- NAVIGASI KE TERAPI -->
+            <div id="navigationBackToTherapy" style="display: none; margin-top: 30px;">
+                <div class="navigation-buttons">
+                    <button class="btn btn-warning" onclick="switchTab('therapy')">
+                        <i class="fas fa-arrow-left"></i> Kembali ke Terapi
+                    </button>
+                    <button class="btn btn-primary" onclick="printReport()">
+                        <i class="fas fa-print"></i> Cetak Laporan Lengkap
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TAB 5: TENTANG -->
+        <div class="tab-content no-print" id="about-tab">
+            <h2><i class="fas fa-info-circle"></i> Tentang Sistem AAT Holistik</h2>
+            
+            <div class="compact-analysis">
+                <div class="analysis-header">
+                    <h3><i class="fas fa-heartbeat"></i> Sistem Analisa Angka Tensimeter Holistik</h3>
+                </div>
+                
+                <div class="analysis-grid">
+                    <div class="analysis-item">
+                        <h4><i class="fas fa-bullseye"></i> Visi</h4>
+                        <p>Menyediakan sistem analisis kesehatan holistik yang terintegrasi dengan pendekatan timur dan barat.</p>
+                    </div>
+                    <div class="analysis-item">
+                        <h4><i class="fas fa-tasks"></i> Misi</h4>
+                        <p>1. Analisis tensimeter dengan pendekatan panas dingin<br>
+                           2. Manajemen data pasien yang terintegrasi<br>
+                           3. Rekomendasi terapi yang komprehensif</p>
+                    </div>
+                    <div class="analysis-item">
+                        <h4><i class="fas fa-star"></i> Keunggulan</h4>
+                        <p>• Data pasien tersimpan aman<br>
+                           • Analisis real-time<br>
+                           • Menu makanan 7 hari<br>
+                           • Laporan lengkap</p>
+                    </div>
+                </div>
+                
+                <div class="alert alert-info" style="margin-top: 20px;">
+                    <i class="fas fa-shield-alt"></i>
+                    <span><strong>Keamanan Data:</strong> Semua data pasien disimpan di browser Anda dan tidak dikirim ke server mana pun.</span>
+                </div>
+                
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="switchTab('patient')">
+                        <i class="fas fa-user-injured"></i> Mulai dengan Data Pasien
+                    </button>
+                    <button class="btn btn-success" onclick="exportAllData()">
+                        <i class="fas fa-database"></i> Backup Semua Data
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- FOOTER -->
+        <footer>
+            <p>Klinik AAT Holistik Tasikmalaya &copy; 2024 | Sukamanah - Cigalontang - Kab. Tasikmalaya</p>
+            <p>Sistem ini dikembangkan untuk mendukung praktik kesehatan holistik. Konsultasikan dengan praktisi untuk penerapan terapi.</p>
+        </footer>
+    </div>
+
+    <!-- NOTIFICATION ELEMENT -->
+    <div id="notification" class="notification" style="display: none;"></div>
+
+    <script>
+        // =============================================
+        // SISTEM MANAJEMEN PASIEN & ANALISIS
+        // =============================================
+        
+        // Data Storage
+        let patients = JSON.parse(localStorage.getItem('aat_patients')) || [];
+        let currentPatientId = null;
+        let editMode = false;
+        let lastAnalysisResult = null;
+        
+        // Inisialisasi
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+            setupTabNavigation();
+            loadPatientSelect();
+            updatePatientTable();
+        });
+        
+        // Inisialisasi Aplikasi
+        function initializeApp() {
+            // Set tanggal kunjungan ke hari ini
+            const now = new Date();
+            const localDateTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 16);
+            document.getElementById('visitDate').value = localDateTime;
+            
+            // Load contoh pasien jika belum ada data
+            if (patients.length === 0) {
+                loadSamplePatients();
+            }
+        }
+        
+        // Setup Tab Navigation
+        function setupTabNavigation() {
+            document.querySelectorAll('.tab-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const tabId = button.getAttribute('data-tab');
+                    switchTab(tabId);
+                });
+            });
+        }
+        
+        // Switch Tab
+        function switchTab(tabName) {
+            // Remove active class
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Add active class
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+            
+            // Jika pindah ke tab analisis, update dropdown pasien
+            if (tabName === 'analysis') {
+                loadPatientSelect();
+            }
+            
+            // Jika ada hasil analisis dan pindah ke tab terapi, tampilkan terapi
+            if (tabName === 'therapy' && lastAnalysisResult) {
+                displayTherapyRecommendations(lastAnalysisResult);
+                document.getElementById('navigationToFood').style.display = 'block';
+            }
+            
+            // Jika ada hasil analisis dan pindah ke tab food, tampilkan menu
+            if (tabName === 'food' && lastAnalysisResult) {
+                displayFoodMenu(lastAnalysisResult);
+                document.getElementById('navigationBackToTherapy').style.display = 'block';
+            }
+        }
+        
+        // =============================================
+        // MANAJEMEN PASIEN
+        // =============================================
+        
+        // Load Data Pasien Sample
+        function loadSamplePatients() {
+            const samplePatients = [
+                {
+                    id: generatePatientId(),
+                    fullName: "Ahmad Wijaya",
+                    nik: "3374010101010001",
+                    gender: "L",
+                    birthDate: "1980-05-15",
+                    age: 43,
+                    phone: "081234567890",
+                    email: "ahmad@email.com",
+                    address: "Jl. Merdeka No. 123, Tasikmalaya",
+                    city: "Tasikmalaya",
+                    occupation: "Pegawai Swasta",
+                    status: "regular",
+                    createdAt: new Date().toISOString(),
+                    visits: 5
+                },
+                {
+                    id: generatePatientId(),
+                    fullName: "Siti Rahayu",
+                    nik: "3374010202020002",
+                    gender: "P",
+                    birthDate: "1975-08-20",
+                    age: 48,
+                    phone: "082345678901",
+                    email: "siti@email.com",
+                    address: "Jl. Sejahtera No. 45, Tasikmalaya",
+                    city: "Tasikmalaya",
+                    occupation: "Ibu Rumah Tangga",
+                    status: "return",
+                    createdAt: new Date().toISOString(),
+                    visits: 3
+                },
+                {
+                    id: generatePatientId(),
+                    fullName: "Budi Santoso",
+                    nik: "3374010303030003",
+                    gender: "L",
+                    birthDate: "1990-12-10",
+                    age: 33,
+                    phone: "083456789012",
+                    email: "budi@email.com",
+                    address: "Jl. Damai No. 67, Tasikmalaya",
+                    city: "Tasikmalaya",
+                    occupation: "Wiraswasta",
+                    status: "new",
+                    createdAt: new Date().toISOString(),
+                    visits: 1
+                }
+            ];
+            
+            patients = samplePatients;
+            savePatients();
+            updatePatientTable();
+        }
+        
+        // Generate Patient ID
+        function generatePatientId() {
+            const date = new Date();
+            const year = date.getFullYear().toString().substr(-2);
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const day = date.getDate().toString().padStart(2, '0');
+            const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+            return `P${year}${month}${day}${random}`;
+        }
+        
+        // Show New Patient Form
+        function showNewPatientForm() {
+            document.getElementById('patientForm').style.display = 'block';
+            editMode = false;
+            resetPatientForm();
+            
+            // Generate new ID
+            document.getElementById('patientId').value = generatePatientId();
+            
+            // Auto-calculate age from birth date
+            document.getElementById('birthDate').addEventListener('change', function() {
+                if (this.value) {
+                    const birthDate = new Date(this.value);
+                    const today = new Date();
+                    let age = today.getFullYear() - birthDate.getFullYear();
+                    const monthDiff = today.getMonth() - birthDate.getMonth();
+                    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+                        age--;
+                    }
+                    document.getElementById('patientAge').value = age;
+                }
+            });
+        }
+        
+        // Hide Patient Form
+        function hidePatientForm() {
+            document.getElementById('patientForm').style.display = 'none';
+        }
+        
+        // Reset Patient Form
+        function resetPatientForm() {
+            document.getElementById('fullName').value = '';
+            document.getElementById('patientNIK').value = '';
+            document.getElementById('patientGender').value = '';
+            document.getElementById('birthDate').value = '';
+            document.getElementById('patientAge').value = '';
+            document.getElementById('patientPhone').value = '';
+            document.getElementById('patientEmail').value = '';
+            document.getElementById('patientAddress').value = '';
+            document.getElementById('patientCity').value = '';
+            document.getElementById('patientOccupation').value = '';
+            document.getElementById('patientStatus').value = 'new';
+            
+            if (!editMode) {
+                document.getElementById('patientId').value = generatePatientId();
+            }
+        }
+        
+        // Save Patient
+        function savePatient() {
+            const patient = {
+                id: document.getElementById('patientId').value,
+                fullName: document.getElementById('fullName').value.trim(),
+                nik: document.getElementById('patientNIK').value.trim(),
+                gender: document.getElementById('patientGender').value,
+                birthDate: document.getElementById('birthDate').value,
+                age: parseInt(document.getElementById('patientAge').value) || 0,
+                phone: document.getElementById('patientPhone').value.trim(),
+                email: document.getElementById('patientEmail').value.trim(),
+                address: document.getElementById('patientAddress').value.trim(),
+                city: document.getElementById('patientCity').value.trim(),
+                occupation: document.getElementById('patientOccupation').value.trim(),
+                status: document.getElementById('patientStatus').value,
+                createdAt: new Date().toISOString(),
+                visits: editMode ? (patients.find(p => p.id === patient.id)?.visits || 0) : 0
+            };
+            
+            // Validasi
+            if (!patient.fullName || !patient.phone || !patient.address) {
+                alert('Harap isi nama, telepon, dan alamat pasien!');
+                return;
+            }
+            
+            if (editMode) {
+                // Edit existing patient
+                const index = patients.findIndex(p => p.id === patient.id);
+                if (index !== -1) {
+                    patients[index] = patient;
+                }
+            } else {
+                // Add new patient
+                patients.push(patient);
+            }
+            
+            savePatients();
+            updatePatientTable();
+            loadPatientSelect();
+            hidePatientForm();
+            
+            showNotification(`Data pasien ${patient.fullName} berhasil disimpan!`, 'success');
+        }
+        
+        // Edit Patient
+        function editPatient(patientId) {
+            const patient = patients.find(p => p.id === patientId);
+            if (!patient) return;
+            
+            editMode = true;
+            document.getElementById('patientForm').style.display = 'block';
+            
+            // Fill form
+            document.getElementById('patientId').value = patient.id;
+            document.getElementById('fullName').value = patient.fullName;
+            document.getElementById('patientNIK').value = patient.nik || '';
+            document.getElementById('patientGender').value = patient.gender || '';
+            document.getElementById('birthDate').value = patient.birthDate || '';
+            document.getElementById('patientAge').value = patient.age || '';
+            document.getElementById('patientPhone').value = patient.phone;
+            document.getElementById('patientEmail').value = patient.email || '';
+            document.getElementById('patientAddress').value = patient.address;
+            document.getElementById('patientCity').value = patient.city || '';
+            document.getElementById('patientOccupation').value = patient.occupation || '';
+            document.getElementById('patientStatus').value = patient.status || 'new';
+            
+            // Scroll to form
+            document.getElementById('patientForm').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Delete Patient
+        function deletePatient(patientId) {
+            if (!confirm('Apakah Anda yakin ingin menghapus data pasien ini?')) return;
+            
+            patients = patients.filter(p => p.id !== patientId);
+            savePatients();
+            updatePatientTable();
+            loadPatientSelect();
+            
+            showNotification('Data pasien berhasil dihapus!', 'success');
+        }
+        
+        // Search Patients
+        function searchPatients() {
+            const searchTerm = document.getElementById('searchPatient').value.toLowerCase();
+            const statusFilter = document.getElementById('filterStatus').value;
+            
+            let filteredPatients = patients;
+            
+            if (searchTerm) {
+                filteredPatients = filteredPatients.filter(p => 
+                    p.fullName.toLowerCase().includes(searchTerm) ||
+                    (p.nik && p.nik.includes(searchTerm)) ||
+                    p.phone.includes(searchTerm)
+                );
+            }
+            
+            if (statusFilter !== 'all') {
+                filteredPatients = filteredPatients.filter(p => p.status === statusFilter);
+            }
+            
+            updatePatientTable(filteredPatients);
+        }
+        
+        // Update Patient Table
+        function updatePatientTable(filteredPatients = patients) {
+            const tbody = document.getElementById('patientTableBody');
+            tbody.innerHTML = '';
+            
+            if (filteredPatients.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 30px;">
+                            <i class="fas fa-user-slash" style="font-size: 2rem; color: #ccc; margin-bottom: 10px;"></i>
+                            <p>Tidak ada data pasien</p>
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            filteredPatients.forEach(patient => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${patient.id}</td>
+                    <td><strong>${patient.fullName}</strong></td>
+                    <td>${patient.age || '-'} thn</td>
+                    <td>${patient.phone}</td>
+                    <td>${patient.address.substring(0, 30)}${patient.address.length > 30 ? '...' : ''}</td>
+                    <td>
+                        <span class="status-tag ${patient.status === 'new' ? 'status-hot' : patient.status === 'return' ? 'status-warm' : 'status-cold'}">
+                            ${patient.status === 'new' ? 'Baru' : patient.status === 'return' ? 'Lama' : 'Rutin'}
+                        </span>
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="action-btn" style="background: var(--info); color: white;" onclick="selectPatientForAnalysis('${patient.id}')">
+                                <i class="fas fa-stethoscope"></i>
+                            </button>
+                            <button class="action-btn" style="background: var(--warning); color: black;" onclick="editPatient('${patient.id}')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn" style="background: var(--danger); color: white;" onclick="deletePatient('${patient.id}')">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+        
+        // Load Patient Select for Analysis
+        function loadPatientSelect() {
+            const select = document.getElementById('selectPatient');
+            select.innerHTML = '<option value="">-- Pilih Pasien --</option>';
+            
+            patients.forEach(patient => {
+                const option = document.createElement('option');
+                option.value = patient.id;
+                option.textContent = `${patient.fullName} (${patient.id})`;
+                select.appendChild(option);
+            });
+        }
+        
+        // Select Patient for Analysis
+        function selectPatientForAnalysis(patientId) {
+            switchTab('analysis');
+            document.getElementById('selectPatient').value = patientId;
+            loadSelectedPatient();
+        }
+        
+        // Load Selected Patient
+        function loadSelectedPatient() {
+            const patientId = document.getElementById('selectPatient').value;
+            if (!patientId) {
+                document.getElementById('selectedPatientInfo').style.display = 'none';
+                currentPatientId = null;
+                return;
+            }
+            
+            const patient = patients.find(p => p.id === patientId);
+            if (!patient) return;
+            
+            currentPatientId = patientId;
+            document.getElementById('selectedPatientInfo').style.display = 'block';
+            
+            // Update patient info display
+            document.getElementById('patientInfoBasic').innerHTML = `
+                <p><strong>${patient.fullName}</strong></p>
+                <p>${patient.gender === 'L' ? 'Laki-laki' : 'Perempuan'}, ${patient.age} tahun</p>
+                <p>${patient.phone}</p>
+                <p>${patient.email || '-'}</p>
+            `;
+            
+            document.getElementById('patientInfoAddress').innerHTML = `
+                <p>${patient.address}</p>
+                <p>${patient.city}</p>
+                <p>${patient.occupation || '-'}</p>
+            `;
+            
+            document.getElementById('patientInfoHistory').innerHTML = `
+                <p>Status: <span class="status-tag ${patient.status === 'new' ? 'status-hot' : patient.status === 'return' ? 'status-warm' : 'status-cold'}">
+                    ${patient.status === 'new' ? 'Pasien Baru' : patient.status === 'return' ? 'Pasien Lama' : 'Pasien Rutin'}
+                </span></p>
+                <p>Kunjungan: ${patient.visits || 0} kali</p>
+                <p>Terdaftar: ${new Date(patient.createdAt).toLocaleDateString('id-ID')}</p>
+            `;
+        }
+        
+        // Save Patients to LocalStorage
+        function savePatients() {
+            localStorage.setItem('aat_patients', JSON.stringify(patients));
+        }
+        
+        // Export Patient Data
+        function exportPatientData() {
+            const dataStr = JSON.stringify(patients, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            const exportFileName = `patients_backup_${new Date().toISOString().slice(0,10)}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileName);
+            linkElement.click();
+            
+            showNotification(`Data ${patients.length} pasien berhasil diekspor!`, 'success');
+        }
+        
+        // Export All Data
+        function exportAllData() {
+            const allData = {
+                patients: patients,
+                exportDate: new Date().toISOString(),
+                system: "AAT Holistik System"
+            };
+            
+            const dataStr = JSON.stringify(allData, null, 2);
+            const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+            const exportFileName = `aat_system_backup_${new Date().toISOString().slice(0,10)}.json`;
+            
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileName);
+            linkElement.click();
+        }
+        
+        // =============================================
+        // SISTEM ANALISIS - DIPERBAIKI
+        // =============================================
+        
+        // Data Kondisi - DIPERBAIKI logikanya
+        const kondisiData = {
+            PANAS_BERAT: {
+                nama: "PANAS BERAT",
+                kriteria: "≥140/95/95",
+                analisis: "Api Hati naik, panas berlebihan, inflamasi tinggi, emosi tidak stabil",
+                status: "hot",
+                terapi: {
+                    bekam: "P01 (Hati), P02 (Jantung), GB20 - Bekam Basah 5-7 menit, 1x/minggu",
+                    akupunktur: "Tung's 11.07, 22.01, 44.05, LV3 - Teknik sedasi 20-30 menit",
+                    herbal: "Daun Salam 30g + Sambiloto 20g + Pegagan 15g - Rebus 3 gelas jadi 1",
+                    kapsul: "Kapsul AAT-P01: Daun Salam 30% + Sambiloto 25% + Pegagan 20% + Tempuyung 15% + Meniran 10%"
+                }
+            },
+            PANAS_SEDANG: {
+                nama: "PANAS SEDANG",
+                kriteria: "130-140/85-95/85-100",
+                analisis: "Panas hati ringan, stres, gangguan tidur, mudah marah",
+                status: "hot",
+                terapi: {
+                    bekam: "P03 (Punggung Atas), BL15, GB21 - Bekam Kering 10-15 menit",
+                    akupunktur: "Tung's 77.05, 88.03, HT7, PC6 - Tonifikasi ringan",
+                    herbal: "Seledri 40g + Daun Salam 30g + Kumis Kucing 20g - Seduh air panas",
+                    kapsul: "Kapsul AAT-P02: Seledri 40% + Daun Salam 30% + Kumis Kucing 20% + Alang-alang 10%"
+                }
+            },
+            DINGIN_BERAT: {
+                nama: "DINGIN BERAT",
+                kriteria: "≤100/65/≤65",
+                analisis: "Defisiensi Yang parah, energi rendah, metabolisme lambat, tubuh dingin",
+                status: "cold",
+                terapi: {
+                    bekam: "P04 (Punggung Bawah), P05 (Pinggang), BL23 - Bekam panas 15-20 menit",
+                    akupunktur: "Tung's 77.12, 88.07, 73.03, ST36 - Tonifikasi kuat + moksibusi",
+                    herbal: "Jahe Merah 35g + Kayu Manis 25g + Ginseng 20g - Rebus lama",
+                    kapsul: "Kapsul AAT-D01: Jahe Merah 35% + Kayu Manis 25% + Ginseng 20% + Lada Hitam 15% + Cengkeh 5%"
+                }
+            },
+            DINGIN_SEDANG: {
+                nama: "DINGIN SEDANG",
+                kriteria: "100-110/65-75/65-80",
+                analisis: "Defisiensi Yang ringan, sirkulasi kurang optimal, mudah lelah",
+                status: "cold",
+                terapi: {
+                    bekam: "P06 (Punggung Tengah), BL20, BL21 - Bekam Luncur 10-15 menit",
+                    akupunktur: "Tung's 88.12, 77.09, ST36, SP6 - Tonifikasi sedang",
+                    herbal: "Kurma 40g + Kayu Manis 30g + Jahe 20g - Blender dengan air hangat",
+                    kapsul: "Kapsul AAT-D02: Kurma Bubuk 40% + Kayu Manis 30% + Jahe Bubuk 20% + Madu Bubuk 10%"
+                }
+            },
+            NORMAL: {
+                nama: "NORMAL IDEAL",
+                kriteria: "110-125/75-85/70-85",
+                analisis: "Yin-Yang seimbang, kesehatan optimal, energi stabil",
+                status: "warm",
+                terapi: {
+                    bekam: "P07 (Pencegahan), BL13, BL15 - Bekam Kering ringan 5-10 menit",
+                    akupunktur: "Tung's 55.01, 88.03, ST36, LI4 - Penyeimbangan",
+                    herbal: "Kurma 50g + Angkak 30g + Madu 20g - Seduh air hangat",
+                    kapsul: "Kapsul AAT-N01: Kurma Bubuk 50% + Angkak 30% + Madu Bubuk 20%"
+                }
+            },
+            LEMBAB: {
+                nama: "LEMBAB",
+                kriteria: "120-140/80-95/70-90",
+                analisis: "Penumpukan kelembaban, gangguan limpa, tubuh berat, perut kembung",
+                status: "warm",
+                terapi: {
+                    bekam: "P08 (Limpa), P09 (Paru), BL20, BL13 - Bekam Basah ringan 7-10 menit",
+                    akupunktur: "Tung's 44.04, 66.04, SP9, ST40 - Sedasi pengering lembab",
+                    herbal: "Temulawak 40g + Kunyit 30g + Kayu Manis 20g - Rebus 3 gelas jadi 1",
+                    kapsul: "Kapsul AAT-L01: Temulawak 40% + Kunyit 30% + Kayu Manis 20% + Lada Putih 10%"
+                }
+            }
+        };
+        
+        // Perform Analysis - DIPERBAIKI untuk tetap di tab analisis
+        function performAnalysis() {
+            // Check if patient is selected
+            if (!currentPatientId) {
+                showNotification('Pilih pasien terlebih dahulu!', 'info');
+                return;
+            }
+            
+            // Get input values
+            const sistolik = parseInt(document.getElementById('systolic').value);
+            const diastolik = parseInt(document.getElementById('diastolic').value);
+            const nadi = parseInt(document.getElementById('pulse').value);
+            const complaint = document.getElementById('currentComplaint').value;
+            
+            // Validate inputs
+            if (!sistolik || !diastolik || !nadi) {
+                showNotification('Harap isi semua data tensi!', 'info');
+                return;
+            }
+            
+            // Determine condition
+            const kondisi = tentukanKondisi(sistolik, diastolik, nadi);
+            
+            // Simpan hasil analisis untuk digunakan di tab lain
+            lastAnalysisResult = kondisi;
+            
+            // Display analysis result
+            displayAnalysisResult(sistolik, diastolik, nadi, complaint, kondisi);
+            
+            // Tampilkan tombol navigasi ke terapi
+            document.getElementById('navigationToTherapy').style.display = 'block';
+            
+            // Save visit record
+            saveVisitRecord(sistolik, diastolik, nadi, complaint, kondisi);
+            
+            showNotification('Analisis berhasil! Lihat hasil di bawah.', 'success');
+            
+            // Scroll ke hasil analisis
+            document.getElementById('analysisResult').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Determine Condition - LOGIKA DIPERBAIKI
+        function tentukanKondisi(sistolik, diastolik, nadi) {
+            console.log(`Analisis tensi: ${sistolik}/${diastolik}, nadi: ${nadi}`);
+            
+            // Panas Berat: sistolik ≥140 DAN diastolik ≥95 DAN nadi ≥95
+            if (sistolik >= 140 && diastolik >= 95 && nadi >= 95) {
+                console.log("Kondisi: PANAS BERAT");
+                return kondisiData.PANAS_BERAT;
+            }
+            
+            // Panas Sedang: sistolik 130-139 DAN/ATAU diastolik 85-94 DAN/ATAU nadi 85-100
+            if ((sistolik >= 130 && sistolik <= 139) || 
+                (diastolik >= 85 && diastolik <= 94) || 
+                (nadi >= 85 && nadi <= 100)) {
+                console.log("Kondisi: PANAS SEDANG");
+                return kondisiData.PANAS_SEDANG;
+            }
+            
+            // Dingin Berat: sistolik ≤100 DAN diastolik ≤65 DAN nadi ≤65
+            if (sistolik <= 100 && diastolik <= 65 && nadi <= 65) {
+                console.log("Kondisi: DINGIN BERAT");
+                return kondisiData.DINGIN_BERAT;
+            }
+            
+            // Dingin Sedang: sistolik 101-110 DAN/ATAU diastolik 66-75 DAN/ATAU nadi 66-80
+            if ((sistolik >= 101 && sistolik <= 110) || 
+                (diastolik >= 66 && diastolik <= 75) || 
+                (nadi >= 66 && nadi <= 80)) {
+                console.log("Kondisi: DINGIN SEDANG");
+                return kondisiData.DINGIN_SEDANG;
+            }
+            
+            // Normal Ideal: sistolik 111-125 DAN diastolik 76-85 DAN nadi 71-84
+            if (sistolik >= 111 && sistolik <= 125 && 
+                diastolik >= 76 && diastolik <= 85 && 
+                nadi >= 71 && nadi <= 84) {
+                console.log("Kondisi: NORMAL IDEAL");
+                return kondisiData.NORMAL;
+            }
+            
+            // Lembab: default untuk kondisi lain
+            console.log("Kondisi: LEMBAB (default)");
+            return kondisiData.LEMBAB;
+        }
+        
+        // Display Analysis Result
+        function displayAnalysisResult(sistolik, diastolik, nadi, complaint, kondisi) {
+            // Hitung persentase panas/dingin berdasarkan tensi
+            const persenPanas = Math.min(100, Math.max(0, ((sistolik - 100) / 80) * 100));
+            const persenDingin = Math.min(100, Math.max(0, ((110 - diastolik) / 40) * 100));
+            const pulsePressure = sistolik - diastolik;
+            
+            let pulsePressureAnalysis = '';
+            if (pulsePressure > 60) pulsePressureAnalysis = 'Lebar (panas berlebih)';
+            else if (pulsePressure < 30) pulsePressureAnalysis = 'Sempit (dingin)';
+            else pulsePressureAnalysis = 'Normal';
+            
+            let pulseAnalysis = '';
+            if (nadi < 60) pulseAnalysis = 'Lambat (dingin)';
+            else if (nadi > 100) pulseAnalysis = 'Cepat (panas)';
+            else pulseAnalysis = 'Normal';
+            
+            const html = `
+                <div class="compact-analysis">
+                    <div class="analysis-header">
+                        <h3><i class="fas fa-chart-line"></i> HASIL ANALISIS</h3>
+                        <button class="btn btn-warning" onclick="window.print()">
+                            <i class="fas fa-print"></i> Cetak
+                        </button>
+                    </div>
+                    
+                    <div class="analysis-grid">
+                        <div class="analysis-item">
+                            <h4><i class="fas fa-heartbeat"></i> Tensimeter</h4>
+                            <div class="analysis-value">${sistolik}/${diastolik} mmHg</div>
+                            <p>Nadi: ${nadi} bpm (${pulseAnalysis})</p>
+                            <p>Perbedaan: ${pulsePressure} mmHg (${pulsePressureAnalysis})</p>
+                        </div>
+                        
+                        <div class="analysis-item">
+                            <h4><i class="fas fa-thermometer-half"></i> Status</h4>
+                            <div class="analysis-value">${kondisi.nama}</div>
+                            <span class="status-tag status-${kondisi.status}">
+                                ${kondisi.status === 'hot' ? 'PANAS' : kondisi.status === 'cold' ? 'DINGIN' : 'SEIMBANG'}
+                            </span>
+                            <p>Kriteria: ${kondisi.kriteria}</p>
+                        </div>
+                        
+                        <div class="analysis-item">
+                            <h4><i class="fas fa-balance-scale"></i> Keseimbangan Energi</h4>
+                            <div style="margin: 10px 0;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                    <span>Panas: ${persenPanas.toFixed(0)}%</span>
+                                    <span>Dingin: ${persenDingin.toFixed(0)}%</span>
+                                </div>
+                                <div style="height: 10px; background: linear-gradient(90deg, #42a5f5 0%, #66bb6a 50%, #ff5252 100%); border-radius: 5px; position: relative;">
+                                    <div style="position: absolute; left: ${persenPanas}%; top: -5px; width: 2px; height: 20px; background: #333;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: var(--border-radius);">
+                        <h4><i class="fas fa-comment-medical"></i> Keluhan & Analisis</h4>
+                        <p><strong>Keluhan:</strong> ${complaint || 'Tidak ada keluhan spesifik'}</p>
+                        <p><strong>Analisis:</strong> ${kondisi.analisis}</p>
+                    </div>
+                    
+                    <div style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-radius: var(--border-radius);">
+                        <h4><i class="fas fa-lightbulb"></i> Langkah Selanjutnya</h4>
+                        <p>Analisis selesai. Anda dapat:</p>
+                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                            <button class="btn btn-info" onclick="viewTherapyPreview()">
+                                <i class="fas fa-eye"></i> Pratinjau Terapi
+                            </button>
+                            <button class="btn btn-primary" onclick="switchTab('therapy')">
+                                <i class="fas fa-hand-holding-medical"></i> Lihat Detail Terapi
+                            </button>
+                            <button class="btn btn-success" onclick="switchTab('food')">
+                                <i class="fas fa-utensils"></i> Menu Makanan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('analysisResult').innerHTML = html;
+        }
+        
+        // View Therapy Preview
+        function viewTherapyPreview() {
+            if (!lastAnalysisResult) {
+                showNotification('Lakukan analisis terlebih dahulu!', 'info');
+                return;
+            }
+            
+            const preview = `
+                <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: flex; justify-content: center; align-items: center;">
+                    <div style="background: white; padding: 30px; border-radius: var(--border-radius); max-width: 600px; max-height: 80vh; overflow-y: auto;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                            <h3><i class="fas fa-hand-holding-medical"></i> Pratinjau Terapi</h3>
+                            <button class="btn btn-danger" onclick="this.parentElement.parentElement.parentElement.remove()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <h4>Kondisi: ${lastAnalysisResult.nama}</h4>
+                        <p><strong>Terapi Bekam:</strong> ${lastAnalysisResult.terapi.bekam}</p>
+                        <p><strong>Akupunktur:</strong> ${lastAnalysisResult.terapi.akupunktur}</p>
+                        <p><strong>Herbal:</strong> ${lastAnalysisResult.terapi.herbal}</p>
+                        <div style="margin-top: 20px; display: flex; gap: 10px;">
+                            <button class="btn btn-primary" onclick="switchTab('therapy'); this.parentElement.parentElement.parentElement.remove()">
+                                <i class="fas fa-external-link-alt"></i> Buka Tab Terapi
+                            </button>
+                            <button class="btn btn-secondary" onclick="this.parentElement.parentElement.parentElement.remove()">
+                                <i class="fas fa-times"></i> Tutup
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('beforeend', preview);
+        }
+        
+        // View Therapy Details
+        function viewTherapyDetails() {
+            switchTab('therapy');
+        }
+        
+        // Display Therapy Recommendations
+        function displayTherapyRecommendations(kondisi) {
+            if (!kondisi) {
+                document.getElementById('therapyResult').innerHTML = `
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Silakan lakukan analisis terlebih dahulu untuk melihat rekomendasi terapi.</span>
+                    </div>
+                `;
+                return;
+            }
+            
+            const html = `
+                <div class="compact-analysis">
+                    <div class="analysis-header">
+                        <h3><i class="fas fa-hand-holding-medical"></i> REKOMENDASI TERAPI UNTUK ${kondisi.nama}</h3>
+                        <span class="status-tag status-${kondisi.status}">
+                            ${kondisi.status === 'hot' ? 'TERAPI PENDINGINAN' : kondisi.status === 'cold' ? 'TERAPI PEMANASAN' : 'TERAPI PENYEIMBANGAN'}
+                        </span>
+                    </div>
+                    
+                    <div class="therapy-grid">
+                        <div class="therapy-card">
+                            <div class="therapy-header">
+                                <i class="fas fa-tint"></i> Terapi Bekam
+                            </div>
+                            <div class="therapy-content">
+                                <h4>Titik Bekam</h4>
+                                <p>${kondisi.terapi.bekam}</p>
+                                <h4>Catatan:</h4>
+                                <p>• Dilakukan oleh praktisi berpengalaman<br>
+                                   • Hindari setelah makan kenyang<br>
+                                   • Istirahat setelah terapi</p>
+                            </div>
+                        </div>
+                        
+                        <div class="therapy-card">
+                            <div class="therapy-header">
+                                <i class="fas fa-bullseye"></i> Akupunktur Tung
+                            </div>
+                            <div class="therapy-content">
+                                <h4>Titik Akupunktur</h4>
+                                <p>${kondisi.terapi.akupunktur}</p>
+                                <h4>Teknik:</h4>
+                                <p>${kondisi.status === 'hot' ? 'Sedasi (menurunkan panas)' : 'Tonifikasi (meningkatkan energi)'}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="therapy-card">
+                            <div class="therapy-header">
+                                <i class="fas fa-leaf"></i> Herbal / Jamu
+                            </div>
+                            <div class="therapy-content">
+                                <h4>Formulasi</h4>
+                                <p>${kondisi.terapi.herbal}</p>
+                                <h4>Dosis:</h4>
+                                <p>2x sehari setelah makan<br>
+                                   Minum dalam keadaan hangat</p>
+                            </div>
+                        </div>
+                        
+                        <div class="therapy-card">
+                            <div class="therapy-header">
+                                <i class="fas fa-capsules"></i> Kapsul Serbuk
+                            </div>
+                            <div class="therapy-content">
+                                <h4>Formulasi 500mg</h4>
+                                <p>${kondisi.terapi.kapsul}</p>
+                                <h4>Dosis:</h4>
+                                <p>2 kapsul, 2x sehari<br>
+                                   Total: 1000mg/hari</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="compact-analysis" style="margin-top: 20px;">
+                        <h4><i class="fas fa-calendar-alt"></i> Jadwal Terapi</h4>
+                        <div class="analysis-grid">
+                            <div class="analysis-item">
+                                <h4>Minggu 1-2</h4>
+                                <p>2-3x terapi/minggu<br>
+                                   Pantau tensi setiap hari</p>
+                            </div>
+                            <div class="analysis-item">
+                                <h4>Minggu 3-4</h4>
+                                <p>1-2x terapi/minggu<br>
+                                   Evaluasi progres</p>
+                            </div>
+                            <div class="analysis-item">
+                                <h4>Kontraindikasi</h4>
+                                <p>• Demam tinggi<br>
+                                   • Hamil<br>
+                                   • Kondisi akut</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('therapyResult').innerHTML = html;
+            document.getElementById('navigationToFood').style.display = 'block';
+        }
+        
+        // Display Food Menu
+        function displayFoodMenu(kondisi) {
+            if (!kondisi) {
+                document.getElementById('foodMenuResult').innerHTML = `
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Silakan lakukan analisis terlebih dahulu untuk melihat rekomendasi menu makanan.</span>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Simple food menu based on condition
+            let menuType = '';
+            let menuDescription = '';
+            
+            if (kondisi.status === 'hot') {
+                menuType = 'Menu Pendinginan';
+                menuDescription = 'Makanan dingin dan menyejukkan, hindari makanan panas';
+            } else if (kondisi.status === 'cold') {
+                menuType = 'Menu Pemanasan';
+                menuDescription = 'Makanan hangat dan menghangatkan, hindari makanan dingin';
+            } else {
+                menuType = 'Menu Seimbang';
+                menuDescription = 'Makanan seimbang dengan variasi nutrisi';
+            }
+            
+            const html = `
+                <div class="compact-analysis">
+                    <div class="analysis-header">
+                        <h3><i class="fas fa-utensils"></i> ${menuType}</h3>
+                        <span class="status-tag status-${kondisi.status}">
+                            ${kondisi.nama}
+                        </span>
+                    </div>
+                    
+                    <p style="margin-bottom: 20px;">${menuDescription}</p>
+                    
+                    <div class="food-week-grid">
+                        ${['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'].map(day => `
+                            <div class="day-card">
+                                <div class="day-header">${day}</div>
+                                <div class="day-content">
+                                    <div class="meal-time">
+                                        <h5><i class="fas fa-sun"></i> Sarapan</h5>
+                                        <p>${kondisi.status === 'hot' ? 'Bubur havermut + Teh hijau' : kondisi.status === 'cold' ? 'Bubur ayam + Wedang jahe' : 'Roti gandum + Susu'}</p>
+                                    </div>
+                                    <div class="meal-time">
+                                        <h5><i class="fas fa-utensils"></i> Makan Siang</h5>
+                                        <p>${kondisi.status === 'hot' ? 'Nasi merah + Ikan kukus + Sayuran' : kondisi.status === 'cold' ? 'Nasi + Sup daging + Sayur tumis' : 'Nasi + Ayam + Sayur sop'}</p>
+                                    </div>
+                                    <div class="meal-time">
+                                        <h5><i class="fas fa-moon"></i> Makan Malam</h5>
+                                        <p>${kondisi.status === 'hot' ? 'Sup bening + Tahu + Lalapan' : kondisi.status === 'cold' ? 'Nasi + Ikan bakar + Sayur bayam' : 'Nasi + Tempe + Sayur asem'}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    
+                    <div style="margin-top: 20px; padding: 15px; background: #e8f5e9; border-radius: var(--border-radius);">
+                        <h4><i class="fas fa-lightbulb"></i> Tips Makanan</h4>
+                        <p>• Makan teratur 3x sehari<br>
+                           • Hindari ${kondisi.status === 'hot' ? 'makanan pedas dan gorengan' : kondisi.status === 'cold' ? 'makanan dingin dan mentah' : 'makanan berlebihan'}<br>
+                           • Minum air putih 8 gelas/hari<br>
+                           • Kunyah makanan perlahan</p>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('foodMenuResult').innerHTML = html;
+            document.getElementById('navigationBackToTherapy').style.display = 'block';
+        }
+        
+        // Save Visit Record
+        function saveVisitRecord(sistolik, diastolik, nadi, complaint, kondisi) {
+            const patient = patients.find(p => p.id === currentPatientId);
+            if (!patient) return;
+            
+            // Update visit count
+            patient.visits = (patient.visits || 0) + 1;
+            
+            // Create visit record
+            const visit = {
+                date: document.getElementById('visitDate').value,
+                bloodPressure: `${sistolik}/${diastolik}`,
+                pulse: nadi,
+                complaint: complaint,
+                condition: kondisi.nama,
+                status: kondisi.status,
+                therapy: kondisi.terapi
+            };
+            
+            // Save visits in patient record
+            if (!patient.visitHistory) patient.visitHistory = [];
+            patient.visitHistory.push(visit);
+            
+            // Keep only last 10 visits
+            if (patient.visitHistory.length > 10) {
+                patient.visitHistory = patient.visitHistory.slice(-10);
+            }
+            
+            savePatients();
+        }
+        
+        // Reset Analysis Form
+        function resetAnalysisForm() {
+            document.getElementById('systolic').value = '';
+            document.getElementById('diastolic').value = '';
+            document.getElementById('pulse').value = '';
+            document.getElementById('currentComplaint').value = '';
+            document.getElementById('analysisResult').innerHTML = '';
+            document.getElementById('navigationToTherapy').style.display = 'none';
+            lastAnalysisResult = null;
+        }
+        
+        // Load Example Data
+        function loadExampleData(type) {
+            let sistolik, diastolik, nadi, complaint;
+            
+            switch(type) {
+                case 'hot':
+                    sistolik = 150;
+                    diastolik = 100;
+                    nadi = 110;
+                    complaint = "Sering pusing, mudah marah, wajah merah, sulit tidur";
+                    break;
+                case 'cold':
+                    sistolik = 95;
+                    diastolik = 60;
+                    nadi = 58;
+                    complaint = "Tubuh lemas, tangan kaki dingin, mudah lelah, sering mengantuk";
+                    break;
+                default:
+                    sistolik = 120;
+                    diastolik = 80;
+                    nadi = 80;
+                    complaint = "Kondisi stabil, kontrol rutin";
+            }
+            
+            document.getElementById('systolic').value = sistolik;
+            document.getElementById('diastolic').value = diastolik;
+            document.getElementById('pulse').value = nadi;
+            document.getElementById('currentComplaint').value = complaint;
+            
+            if (currentPatientId) {
+                // Tunggu sebentar agar nilai input terbaca
+                setTimeout(() => {
+                    performAnalysis();
+                }, 300);
+            } else {
+                showNotification('Contoh data dimuat. Pilih pasien terlebih dahulu untuk analisis.', 'info');
+            }
+        }
+        
+        // Print Report
+        function printReport() {
+            window.print();
+        }
+        
+        // Show Notification
+        function showNotification(message, type = 'info') {
+            const notification = document.getElementById('notification');
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'info' ? 'info-circle' : 'exclamation-circle'}"></i>
+                <span>${message}</span>
+            `;
+            notification.className = `notification notification-${type}`;
+            notification.style.display = 'flex';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Test function untuk debugging
+        function testAnalisis() {
+            const testCases = [
+                {s: 150, d: 100, n: 110, expected: 'PANAS_BERAT'},
+                {s: 135, d: 90, n: 95, expected: 'PANAS_SEDANG'},
+                {s: 95, d: 60, n: 58, expected: 'DINGIN_BERAT'},
+                {s: 105, d: 70, n: 75, expected: 'DINGIN_SEDANG'},
+                {s: 120, d: 80, n: 80, expected: 'NORMAL'},
+                {s: 130, d: 85, n: 90, expected: 'PANAS_SEDANG'}
+            ];
+            
+            console.log("=== TES ANALISIS ===");
+            testCases.forEach(test => {
+                const result = tentukanKondisi(test.s, test.d, test.n);
+                console.log(`${test.s}/${test.d}/${test.n} => ${result.nama} (diharapkan: ${test.expected})`);
+            });
+        }
+    </script>
+</body>
+</html>
